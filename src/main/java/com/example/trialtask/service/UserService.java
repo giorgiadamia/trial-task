@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 
 @Service
@@ -31,16 +32,14 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean create(User user) {
+    public void create(User user) {
         User userFromDb = userRepository.findByEmail(user.getEmail());
         if (userFromDb != null) {
-            return false;
+            throw new EntityNotFoundException("User is not found");
         }
 
         user.setRoles(Collections.singleton(Roles.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
-        return true;
     }
 }
