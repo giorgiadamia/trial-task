@@ -24,13 +24,19 @@ public class User implements UserDetails {
     private Long id;
 
     @NonNull
+    @Column(name = "name")
     private String name;
+
     @NonNull
+    @Column(name = "password")
     private String password;
+
     @NonNull
+    @Column(name = "email")
     private String email;
 
     @CreationTimestamp
+    @Column(name = "date_of_create")
     private LocalDateTime dateOfCreate;
 
     @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)

@@ -1,9 +1,6 @@
 package com.example.trialtask.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,18 +13,23 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Quote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NonNull
+    @Column(name = "content")
     private String content;
 
     @CreationTimestamp
+    @Column(name = "date_of_create")
     private LocalDateTime dataOfCreate;
 
     @UpdateTimestamp
+    @Column(name = "date_of_change")
     private LocalDateTime dateOfChange;
 
     @ManyToOne
